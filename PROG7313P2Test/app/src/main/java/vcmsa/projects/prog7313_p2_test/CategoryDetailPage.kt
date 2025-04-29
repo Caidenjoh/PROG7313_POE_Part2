@@ -64,24 +64,30 @@ class CategoryDetailPage : AppCompatActivity() {
 
     private fun displayExpenses(expenses: List<Expense>) {
         expenseList.removeAllViews()
+        val inflater = layoutInflater
+
         for (expense in expenses) {
-            val textView = TextView(this).apply {
-                text = "${expense.name} - R${expense.amount} on ${expense.date}"
-                setTextColor(resources.getColor(android.R.color.black))
-                textSize = 16f
-                setPadding(0, 8, 0, 8)
-            }
-            expenseList.addView(textView)
+            val cardView = inflater.inflate(R.layout.expense_item, expenseList, false)
+            val nameText = cardView.findViewById<TextView>(R.id.expenseName)
+            val amountText = cardView.findViewById<TextView>(R.id.expenseAmount)
+            val dateText = cardView.findViewById<TextView>(R.id.expenseDate)
+
+            nameText.text = expense.name
+            amountText.text = "R${expense.amount}"
+            dateText.text = expense.date
+
+            expenseList.addView(cardView)
         }
 
         if (expenses.isEmpty()) {
             val emptyText = TextView(this).apply {
                 text = "No expenses found for this category."
-                setTextColor(resources.getColor(android.R.color.darker_gray))
+                setTextColor(resources.getColor(android.R.color.black, theme))
                 textSize = 16f
                 setPadding(0, 8, 0, 8)
             }
             expenseList.addView(emptyText)
         }
     }
+
 }

@@ -24,60 +24,65 @@
 
     <EditText
         android:id="@+id/expenseNameField"
-        android:layout_width="0dp"
+        android:layout_width="386dp"
         android:layout_height="48dp"
+        android:layout_marginTop="24dp"
+        android:background="@android:color/white"
         android:hint="Expense Name"
         android:inputType="text"
-        android:layout_marginTop="24dp"
-        app:layout_constraintTop_toBottomOf="@id/textView3"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintTop_toBottomOf="@id/textView3" />
 
     <EditText
         android:id="@+id/expenseAmountField"
-        android:layout_width="0dp"
-        android:layout_height="48dp"
+        android:layout_width="386dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="16dp"
+        android:background="@android:color/white"
         android:hint="Amount"
         android:inputType="numberDecimal"
-        android:layout_marginTop="16dp"
-        app:layout_constraintTop_toBottomOf="@id/expenseNameField"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintTop_toBottomOf="@id/expenseNameField" />
 
     <EditText
         android:id="@+id/expenseDateField"
-        android:layout_width="0dp"
+        android:layout_width="386dp"
         android:layout_height="48dp"
-        android:hint="Date"
-        android:focusable="false"
-        android:clickable="true"
-        android:inputType="none"
         android:layout_marginTop="16dp"
-        app:layout_constraintTop_toBottomOf="@id/expenseAmountField"
+        android:background="@android:color/white"
+        android:clickable="true"
+        android:focusable="false"
+        android:hint="Date"
+        android:inputType="none"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintTop_toBottomOf="@id/expenseAmountField" />
 
     <EditText
         android:id="@+id/expenseDescriptionField"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:hint="Description"
-        android:minLines="3"
-        android:gravity="top|start"
-        android:inputType="textMultiLine"
+        android:layout_width="386dp"
+        android:layout_height="66dp"
         android:layout_marginTop="16dp"
-        app:layout_constraintTop_toBottomOf="@id/expenseDateField"
+        android:background="@android:color/white"
+        android:gravity="top|start"
+        android:hint="Description"
+        android:inputType="textMultiLine"
+        android:minLines="3"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintTop_toBottomOf="@id/expenseDateField" />
 
     <Spinner
         android:id="@+id/categorySpinner"
-        android:layout_width="0dp"
+        android:layout_width="386dp"
         android:layout_height="48dp"
         android:layout_marginTop="8dp"
-        app:layout_constraintTop_toBottomOf="@id/expenseDescriptionField"
+        android:background="@android:color/white"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintTop_toBottomOf="@id/expenseDescriptionField" />
 
     <Button
         android:id="@+id/saveExpenseButton"

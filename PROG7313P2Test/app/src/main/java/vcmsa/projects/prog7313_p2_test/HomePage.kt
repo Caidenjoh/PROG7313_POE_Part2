@@ -9,6 +9,9 @@ import android.content.Intent
 import android.widget.Button
 
 class HomePage : AppCompatActivity() {
+
+    private var userId: Int = -1
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -19,10 +22,13 @@ class HomePage : AppCompatActivity() {
             insets
         }
 
+        userId = intent.getIntExtra("userId", -1)
+
         val categoriesButton = findViewById<Button>(R.id.CategoriesButton)
 
         categoriesButton.setOnClickListener {
             val intent = Intent(this, CategoriesPage::class.java)
+            intent.putExtra("userId", userId) // Pass userId here
             startActivity(intent)
         }
     }

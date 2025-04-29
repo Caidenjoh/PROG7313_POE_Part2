@@ -29,7 +29,10 @@ class MainActivity : AppCompatActivity() {
             applicationContext,
             AppDatabase::class.java,
             "my-database.db"
-        ).build()
+        )
+            .fallbackToDestructiveMigration() // ← Add this line
+            .build()
+
 
         emailField = findViewById(R.id.emailField)
         passwordField = findViewById(R.id.passwordField)
@@ -61,6 +64,7 @@ class MainActivity : AppCompatActivity() {
             if (user != null) {
                 Toast.makeText(this@MainActivity, "Login Successful!", Toast.LENGTH_SHORT).show()
                 val intent = Intent(this@MainActivity, HomePage::class.java)
+                intent.putExtra("userId", user.id) // Pass userId here
                 startActivity(intent)
                 finish()
             } else {

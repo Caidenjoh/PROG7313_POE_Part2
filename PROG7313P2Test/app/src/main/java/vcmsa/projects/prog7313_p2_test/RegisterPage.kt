@@ -31,6 +31,8 @@ class RegisterPage : AppCompatActivity() {
         val emailField = findViewById<EditText>(R.id.emailField)
         val passwordField = findViewById<EditText>(R.id.passwordField)
         val registerButton = findViewById<Button>(R.id.signUpButton)
+        val goToLoginButton = findViewById<Button>(R.id.gotoLoginButton)
+
 
         registerButton.setOnClickListener {
             val name = nameField.text.toString()
@@ -52,6 +54,12 @@ class RegisterPage : AppCompatActivity() {
             } else {
                 Toast.makeText(this, "Please fill all fields", Toast.LENGTH_SHORT).show()
             }
+        }
+
+
+        goToLoginButton.setOnClickListener {
+            val intent = Intent(this, MainActivity::class.java)
+            startActivity(intent)
         }
     }
 }

@@ -8,15 +8,30 @@
     card_view:cardElevation="4dp"
     android:background="@android:color/white">
 
-    <TextView
-        android:id="@+id/categoryNameText"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="16dp"
-        android:text="Category Name"
-        android:textColor="@android:color/black"
-        android:textSize="18sp"
-        android:textStyle="bold" />
+        android:orientation="vertical">
 
+        <TextView
+            android:id="@+id/categoryNameText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Category Name"
+            android:textColor="@android:color/black"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+        <Button
+            android:id="@+id/viewDetailsButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="View Details"
+            android:textColor="@android:color/white"
+            android:backgroundTint="#5F39D3" />
+    </LinearLayout>
 </androidx.cardview.widget.CardView>
+
 

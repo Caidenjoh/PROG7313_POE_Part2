@@ -54,7 +54,7 @@ class CategoriesPage : AppCompatActivity() {
             val categories: List<Category> = withContext(Dispatchers.IO) {
                 db.categoryDao().getCategoriesForUser(userId)
             }
-            adapter = CategoryAdapter(categories)
+            adapter = CategoryAdapter(categories, userId)
             recyclerView.adapter = adapter
         }
     }

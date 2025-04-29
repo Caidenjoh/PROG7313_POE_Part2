@@ -25,9 +25,16 @@ class HomePage : AppCompatActivity() {
         userId = intent.getIntExtra("userId", -1)
 
         val categoriesButton = findViewById<Button>(R.id.CategoriesButton)
+        val expenseButton = findViewById<Button>(R.id.ExpensesButton)
 
         categoriesButton.setOnClickListener {
             val intent = Intent(this, CategoriesPage::class.java)
+            intent.putExtra("userId", userId) // Pass userId here
+            startActivity(intent)
+        }
+
+        expenseButton.setOnClickListener {
+            val intent = Intent(this, ExpenseEntryPage::class.java)
             intent.putExtra("userId", userId) // Pass userId here
             startActivity(intent)
         }

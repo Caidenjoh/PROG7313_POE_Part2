@@ -11,5 +11,6 @@ data class Expense(
     val date: String,
     val description: String,
     val categoryId: Int,
-    val userId: Int
+    val userId: Int,
+    val receiptImage: ByteArray? = null
 )

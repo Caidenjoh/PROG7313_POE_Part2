@@ -1,7 +1,11 @@
 package vcmsa.projects.prog7313_p2_test
 
 import android.app.DatePickerDialog
+import android.app.Activity
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
+import android.provider.MediaStore
 import android.view.View
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
@@ -9,15 +13,15 @@ import androidx.lifecycle.lifecycleScope
 import androidx.room.Room
 import kotlinx.coroutines.launch
 import vcmsa.projects.prog7313_p2_test.data.AppDatabase
-import vcmsa.projects.prog7313_p2_test.data.Category
 import vcmsa.projects.prog7313_p2_test.data.Expense
-import java.text.SimpleDateFormat
 import java.util.*
 
 class ExpenseEntryPage : AppCompatActivity() {
 
     private lateinit var db: AppDatabase
     private var userId: Int = -1
+    private val REQUEST_IMAGE_PICK = 1
+    private var selectedImageUri: Uri? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -28,9 +32,10 @@ class ExpenseEntryPage : AppCompatActivity() {
             applicationContext,
             AppDatabase::class.java,
             "my-database.db"
-        ).build()
+        )
+//            .fallbackToDestructiveMigration()
+            .build()
 
-        // Get userId passed from intent
         userId = intent.getIntExtra("userId", -1)
 
         val nameField = findViewById<EditText>(R.id.expenseNameField)
@@ -39,8 +44,10 @@ class ExpenseEntryPage : AppCompatActivity() {
         val descField = findViewById<EditText>(R.id.expenseDescriptionField)
         val categorySpinner = findViewById<Spinner>(R.id.categorySpinner)
         val saveButton = findViewById<Button>(R.id.saveExpenseButton)
+        val attachImageButton = findViewById<Button>(R.id.attachImageButton)
+        val receiptImageView = findViewById<ImageView>(R.id.receiptImageView)
 
-        // Initialize DatePickerDialog
+        // Date Picker Setup
         val calendar = Calendar.getInstance()
         val datePickerDialog = DatePickerDialog(
             this,
@@ -53,12 +60,9 @@ class ExpenseEntryPage : AppCompatActivity() {
             calendar.get(Calendar.DAY_OF_MONTH)
         )
 
-        // Make the date field clickable
-        dateField.setFocusable(false)
-        dateField.setClickable(true)
-        dateField.setOnClickListener {
-            datePickerDialog.show()
-        }
+        dateField.setOnClickListener { datePickerDialog.show() }
+        dateField.isFocusable = false
+        dateField.isClickable = true
 
         // Load categories into spinner
         lifecycleScope.launch {
@@ -72,7 +76,13 @@ class ExpenseEntryPage : AppCompatActivity() {
             categorySpinner.adapter = adapter
         }
 
-        // Save button click listener
+        // Attach Image
+        attachImageButton.setOnClickListener {
+            val intent = Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
+            startActivityForResult(intent, REQUEST_IMAGE_PICK)
+        }
+
+        // Save Expense
         saveButton.setOnClickListener {
             val name = nameField.text.toString().trim()
             val amount = amountField.text.toString().toDoubleOrNull() ?: 0.0
@@ -88,19 +98,23 @@ class ExpenseEntryPage : AppCompatActivity() {
             lifecycleScope.launch {
                 val category = db.categoryDao().getCategoryByName(categoryName, userId)
                 if (category != null) {
+                    val receiptImageBytes = selectedImageUri?.let { uriToByteArray(it) }
+
                     val expense = Expense(
                         name = name,
                         amount = amount,
                         date = date,
                         description = desc,
                         categoryId = category.id,
-                        userId = userId
+                        userId = userId,
+                        receiptImage = receiptImageBytes
                     )
+
                     db.expenseDao().insertExpense(expense)
 
                     runOnUiThread {
                         Toast.makeText(this@ExpenseEntryPage, "Expense saved!", Toast.LENGTH_SHORT).show()
-                        finish() // Close page after saving
+                        finish()
                     }
                 } else {
                     runOnUiThread {
@@ -110,4 +124,19 @@ class ExpenseEntryPage : AppCompatActivity() {
             }
         }
     }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (requestCode == REQUEST_IMAGE_PICK && resultCode == Activity.RESULT_OK && data != null) {
+            selectedImageUri = data.data
+            val receiptImageView = findViewById<ImageView>(R.id.receiptImageView)
+            receiptImageView.setImageURI(selectedImageUri)
+            receiptImageView.visibility = View.VISIBLE
+        }
+    }
+
+    private fun uriToByteArray(uri: Uri): ByteArray? {
+        return contentResolver.openInputStream(uri)?.use { it.readBytes() }
+    }
+
 }

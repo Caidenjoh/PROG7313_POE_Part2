@@ -34,12 +34,59 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent">
 
-
-    <LinearLayout
-            android:id="@+id/expenseListContainer"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical" />
+            android:orientation="vertical">
+
+            <!-- Date Filter Layout -->
+            <LinearLayout
+                android:id="@+id/dateFilterLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:padding="8dp"
+                android:gravity="center_horizontal"
+                android:layout_marginBottom="12dp">
+
+                <EditText
+                    android:id="@+id/startDateField"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="48dp"
+                    android:hint="Start Date"
+                    android:focusable="false"
+                    android:clickable="true"
+                    android:inputType="none"
+                    android:backgroundTint="@color/black" />
+
+                <EditText
+                    android:id="@+id/endDateField"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="48dp"
+                    android:hint="End Date"
+                    android:focusable="false"
+                    android:clickable="true"
+                    android:inputType="none"
+                    android:backgroundTint="@color/black"
+                    android:layout_marginStart="8dp" />
+
+                <Button
+                    android:id="@+id/applyDateFilterButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Filter"
+                    android:layout_marginStart="8dp" />
+            </LinearLayout>
+
+            <!-- Expense List -->
+            <LinearLayout
+                android:id="@+id/expenseListContainer"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical" />
+        </LinearLayout>
     </ScrollView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

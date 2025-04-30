@@ -1,6 +1,7 @@
 package vcmsa.projects.prog7313_p2_test
 
 import android.app.DatePickerDialog
+import android.content.Intent
 import android.os.Bundle
 import android.widget.*
 import androidx.activity.enableEdgeToEdge
@@ -45,7 +46,7 @@ class CategoryDetailPage : AppCompatActivity() {
         val categoryName = intent.getStringExtra("categoryName") ?: "Unknown"
         userId = intent.getIntExtra("userId", -1)
 
-        findViewById<TextView>(R.id.categoryDetailText).text = "Expenses for: \"$categoryName\""
+        findViewById<TextView>(R.id.categoryDetailText).text = "  Expenses for: \"$categoryName\""
         expenseList = findViewById(R.id.expenseListContainer)
         startDateField = findViewById(R.id.startDateField)
         endDateField = findViewById(R.id.endDateField)
@@ -100,6 +101,13 @@ class CategoryDetailPage : AppCompatActivity() {
                 displayExpenses(filteredExpenses)
             }
         }
+
+        val addExpenseButton = findViewById<Button>(R.id.addExpenseButton)
+        addExpenseButton.setOnClickListener {
+            val intent = Intent(this, ExpenseEntryPage::class.java)
+            intent.putExtra("userId", userId)
+            startActivity(intent)
+        }
     }
 
     private fun showDatePicker(onDateSelected: (String) -> Unit) {
@@ -148,4 +156,7 @@ class CategoryDetailPage : AppCompatActivity() {
             expenseList.addView(emptyText)
         }
     }
+
+
+
 }

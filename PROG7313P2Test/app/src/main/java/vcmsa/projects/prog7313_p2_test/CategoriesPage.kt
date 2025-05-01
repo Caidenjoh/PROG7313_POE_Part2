@@ -42,6 +42,10 @@ class CategoriesPage : AppCompatActivity() {
             intent.putExtra("userId", userId)
             startActivity(intent)
         }
+
+        findViewById<Button>(R.id.btnReturn).setOnClickListener {
+            finish() // Or navigate to home screen if needed
+        }
     }
 
     override fun onResume() {

@@ -27,6 +27,7 @@ class HomePage : AppCompatActivity() {
         val categoriesButton = findViewById<Button>(R.id.CategoriesButton)
         val expenseButton = findViewById<Button>(R.id.ExpensesButton)
         val rewardsButton = findViewById<Button>(R.id.RewardsButton)
+        val courseGuidesButton = findViewById<Button>(R.id.CourseGuidesButton)
 
         categoriesButton.setOnClickListener {
             val intent = Intent(this, CategoriesPage::class.java)
@@ -42,6 +43,12 @@ class HomePage : AppCompatActivity() {
 
         rewardsButton.setOnClickListener {
             val intent = Intent(this, RewardsPage::class.java)
+            intent.putExtra("userId", userId) // Pass userId here
+            startActivity(intent)
+        }
+
+        courseGuidesButton.setOnClickListener {
+            val intent = Intent(this, FreeCourseGuidesPage::class.java)
             intent.putExtra("userId", userId) // Pass userId here
             startActivity(intent)
         }

@@ -68,7 +68,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
+        android:backgroundTint="@color/black"
         android:text="Return to Home Page"
-        android:backgroundTint="@android:color/darker_gray"
         android:textColor="@android:color/white" />
 </RelativeLayout>

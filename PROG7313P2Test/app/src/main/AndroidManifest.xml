@@ -13,6 +13,9 @@
         android:theme="@style/Theme.PROG7313P2Test"
         tools:targetApi="31">
         <activity
+            android:name=".FreeCourseGuidesPage"
+            android:exported="false" />
+        <activity
             android:name=".ExpenseEntryPage"
             android:exported="false" />
         <activity
@@ -30,15 +33,12 @@
         <activity
             android:name=".RegisterPage"
             android:exported="false" />
-
         <activity
             android:name=".CategoryBudgetPage"
             android:exported="false" />
-
         <activity
             android:name=".RewardsPage"
             android:exported="false" />
-
         <activity
             android:name=".MainActivity"
             android:exported="true">

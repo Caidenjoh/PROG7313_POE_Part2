@@ -16,10 +16,12 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import vcmsa.projects.prog7313_p2_test.data.AppDatabase
 import vcmsa.projects.prog7313_p2_test.data.CategoryBudget
+import java.util.*
 
 class CategoryBudgetPage : AppCompatActivity() {
 
     private var categoryId: Int = -1
+    private var userId: Int = -1
     private lateinit var categoryName: String
     private lateinit var db: AppDatabase
 
@@ -28,15 +30,15 @@ class CategoryBudgetPage : AppCompatActivity() {
         enableEdgeToEdge()
         setContentView(R.layout.activity_category_budget_page)
 
-        // Apply insets for edge-to-edge experience
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
 
-        // Get category name and ID from Intent
+        // Get category ID, user ID, and name from intent
         categoryId = intent.getIntExtra("categoryId", -1)
+        userId = intent.getIntExtra("userId", -1)
         categoryName = intent.getStringExtra("categoryName") ?: "Unknown"
 
         // Initialize database
@@ -46,16 +48,15 @@ class CategoryBudgetPage : AppCompatActivity() {
             "my-database.db"
         ).build()
 
-        // Set heading text
         val headingText = findViewById<TextView>(R.id.budgetHeadingText)
         headingText.text = "Budget for: $categoryName"
 
-        // Initialize UI elements
         val minGoalInput = findViewById<EditText>(R.id.minGoalInput)
         val maxGoalInput = findViewById<EditText>(R.id.maxGoalInput)
         val saveButton = findViewById<Button>(R.id.saveBudgetButton)
+        val spendingSummaryText = findViewById<TextView>(R.id.spendingSummaryText)
 
-        // Fetch and display existing budget data if available
+        // Fetch and show existing budget
         lifecycleScope.launch {
             val existingBudget = withContext(Dispatchers.IO) {
                 db.categoryBudgetDao().getBudgetByCategoryId(categoryId)
@@ -69,7 +70,36 @@ class CategoryBudgetPage : AppCompatActivity() {
             }
         }
 
-        // Save button click listener
+        // Fetch and show current month spending
+        lifecycleScope.launch {
+            val expenses = withContext(Dispatchers.IO) {
+                db.expenseDao().getExpensesForCategory(userId, categoryId)
+            }
+
+            val now = Calendar.getInstance()
+            val currentMonth = now.get(Calendar.MONTH) + 1
+            val currentYear = now.get(Calendar.YEAR)
+
+            val currentMonthExpenses = expenses.filter { expense ->
+                try {
+                    val parts = expense.date.split("/")
+                    val day = parts[0].toInt()
+                    val month = parts[1].toInt()
+                    val year = parts[2].toInt()
+                    month == currentMonth && year == currentYear
+                } catch (e: Exception) {
+                    false
+                }
+            }
+
+            val totalSpending = currentMonthExpenses.sumOf { it.amount }
+
+            withContext(Dispatchers.Main) {
+                spendingSummaryText.text = "Total spent this month: R%.2f".format(totalSpending)
+            }
+        }
+
+        // Save budget button logic
         saveButton.setOnClickListener {
             val minGoalStr = minGoalInput.text.toString()
             val maxGoalStr = maxGoalInput.text.toString()
@@ -87,7 +117,6 @@ class CategoryBudgetPage : AppCompatActivity() {
                 return@setOnClickListener
             }
 
-            // Save budget data
             lifecycleScope.launch {
                 val budget = CategoryBudget(
                     categoryId = categoryId,
@@ -96,13 +125,12 @@ class CategoryBudgetPage : AppCompatActivity() {
                 )
 
                 withContext(Dispatchers.IO) {
-                    // Insert or update the budget in the database
                     db.categoryBudgetDao().insertBudget(budget)
                 }
 
                 withContext(Dispatchers.Main) {
                     Toast.makeText(this@CategoryBudgetPage, "Budget saved!", Toast.LENGTH_SHORT).show()
-                    finish() // Go back to the previous page
+                    finish()
                 }
             }
         }

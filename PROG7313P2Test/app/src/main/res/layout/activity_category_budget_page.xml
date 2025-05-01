@@ -16,7 +16,8 @@
         android:textSize="22sp"
         android:textStyle="bold"
         android:textColor="@color/black"
-        android:layout_marginBottom="24dp" />
+        android:layout_marginBottom="8dp" />
+
 
     <!-- Minimum Goal Card -->
     <com.google.android.material.card.MaterialCardView
@@ -90,5 +91,16 @@
         android:textColor="@android:color/white"
         android:backgroundTint="#5F39D3"
         android:layout_marginTop="24dp" />
+
+    <TextView
+        android:id="@+id/spendingSummaryText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Total spent this month: R0.00"
+        android:textSize="16sp"
+        android:textColor="@color/black"
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="8dp" />
+
 
 </LinearLayout>

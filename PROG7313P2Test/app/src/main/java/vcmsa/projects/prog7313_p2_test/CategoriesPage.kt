@@ -14,7 +14,7 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import vcmsa.projects.prog7313_p2_test.data.Category
 
-class CategoriesPage : AppCompatActivity() {
+class CategoriesPage : BaseActivity() {
 
     private var userId: Int = -1
     private lateinit var db: AppDatabase
@@ -24,6 +24,7 @@ class CategoriesPage : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_categories_page)
+        supportActionBar?.title = ""
 
         userId = intent.getIntExtra("userId", -1)
 

@@ -16,7 +16,7 @@ import vcmsa.projects.prog7313_p2_test.data.AppDatabase
 import vcmsa.projects.prog7313_p2_test.data.Expense
 import java.util.*
 
-class ExpenseEntryPage : AppCompatActivity() {
+class ExpenseEntryPage : BaseActivity() {
 
     private lateinit var db: AppDatabase
     private var userId: Int = -1
@@ -26,6 +26,7 @@ class ExpenseEntryPage : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_expense_entry_page)
+        supportActionBar?.title = ""
 
         // Initialize database
         db = Room.databaseBuilder(

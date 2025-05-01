@@ -7,7 +7,7 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 
-class RewardsPage : AppCompatActivity() {
+class RewardsPage : BaseActivity() {
 
     private var userId: Int = -1
     private lateinit var pointsText: TextView
@@ -26,6 +26,7 @@ class RewardsPage : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_rewards_page)
+        supportActionBar?.title = ""
 
         userId = intent.getIntExtra("userId", -1)
 

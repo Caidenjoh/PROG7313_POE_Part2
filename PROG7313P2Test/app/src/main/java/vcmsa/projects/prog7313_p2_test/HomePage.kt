@@ -8,7 +8,7 @@ import androidx.core.view.WindowInsetsCompat
 import android.content.Intent
 import android.widget.Button
 
-class HomePage : AppCompatActivity() {
+class HomePage : BaseActivity() {
 
     private var userId: Int = -1
 
@@ -16,6 +16,7 @@ class HomePage : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContentView(R.layout.activity_home_page)
+        supportActionBar?.title = ""
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)

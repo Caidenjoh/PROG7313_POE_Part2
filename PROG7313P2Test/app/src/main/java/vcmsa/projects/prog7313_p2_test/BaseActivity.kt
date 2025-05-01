@@ -1,0 +1,47 @@
+package vcmsa.projects.prog7313_p2_test
+
+import android.content.Intent
+import android.os.Bundle
+import android.widget.FrameLayout
+import androidx.appcompat.app.ActionBarDrawerToggle
+import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.Toolbar
+import androidx.drawerlayout.widget.DrawerLayout
+import com.google.android.material.navigation.NavigationView
+
+open class BaseActivity : AppCompatActivity() {
+
+    protected lateinit var drawerLayout: DrawerLayout
+    private lateinit var navView: NavigationView
+
+    override fun setContentView(layoutResID: Int) {
+        val fullLayout = layoutInflater.inflate(R.layout.drawer_base_layout, null)
+        val contentFrame = fullLayout.findViewById<FrameLayout>(R.id.content_frame)
+        layoutInflater.inflate(layoutResID, contentFrame, true)
+        super.setContentView(fullLayout)
+
+        drawerLayout = fullLayout.findViewById(R.id.drawer_layout)
+        navView = fullLayout.findViewById(R.id.nav_view)
+        val toolbar: Toolbar = fullLayout.findViewById(R.id.toolbar)
+
+        setSupportActionBar(toolbar)
+        val toggle = ActionBarDrawerToggle(
+            this, drawerLayout, toolbar,
+            R.string.navigation_drawer_open, R.string.navigation_drawer_close
+        )
+        drawerLayout.addDrawerListener(toggle)
+        toggle.syncState()
+
+        navView.setNavigationItemSelectedListener { menuItem ->
+            when (menuItem.itemId) {
+                R.id.nav_home -> startActivity(Intent(this, HomePage::class.java))
+                R.id.nav_categories -> startActivity(Intent(this, CategoriesPage::class.java))
+                R.id.nav_expenses -> startActivity(Intent(this, ExpenseEntryPage::class.java))
+                R.id.nav_rewards -> startActivity(Intent(this, RewardsPage::class.java))
+                R.id.nav_courses -> startActivity(Intent(this, FreeCourseGuidesPage::class.java))
+            }
+            drawerLayout.closeDrawers()
+            true
+        }
+    }
+}

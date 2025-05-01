@@ -1,0 +1,44 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@android:color/white"
+    android:orientation="vertical"
+    android:padding="16dp"
+    android:elevation="4dp"
+    android:layout_marginBottom="12dp"
+    android:backgroundTint="@android:color/white"
+    android:layout_marginHorizontal="8dp"
+    android:clipToPadding="false"
+    android:layout_gravity="center">
+
+    <TextView
+        android:id="@+id/rewardTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Reward Title"
+        android:textStyle="bold"
+        android:textSize="18sp" />
+
+    <TextView
+        android:id="@+id/rewardDescription"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Reward Description"
+        android:layout_marginTop="4dp" />
+
+    <TextView
+        android:id="@+id/rewardCost"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Cost"
+        android:layout_marginTop="4dp" />
+
+    <Button
+        android:id="@+id/purchaseButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Purchase"
+        android:layout_marginTop="8dp"
+        android:backgroundTint="#5E50A1"
+        android:textColor="@android:color/white" />
+</LinearLayout>

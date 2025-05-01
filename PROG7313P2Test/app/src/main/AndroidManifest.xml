@@ -32,6 +32,10 @@
             android:exported="false" />
 
         <activity
+            android:name=".CategoryBudgetPage"
+            android:exported="false" />
+
+        <activity
             android:name=".RewardsPage"
             android:exported="false" />
 

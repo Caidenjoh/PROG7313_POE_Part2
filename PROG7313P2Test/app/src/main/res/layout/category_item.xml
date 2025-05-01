@@ -23,14 +23,35 @@
             android:textSize="18sp"
             android:textStyle="bold" />
 
-        <Button
-            android:id="@+id/viewDetailsButton"
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:orientation="horizontal"
             android:layout_marginTop="8dp"
-            android:text="View Details"
-            android:textColor="@android:color/white"
-            android:backgroundTint="#5F39D3" />
+            android:gravity="center"> <!-- Optional if you use weight -->
+
+            <Button
+                android:id="@+id/viewDetailsButton"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="View Details"
+                android:textColor="@android:color/white"
+                android:backgroundTint="#5F39D3" />
+
+            <Button
+                android:id="@+id/setBudgetButton"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_marginStart="8dp"
+                android:text="Set Budget"
+                android:textColor="@android:color/white"
+                android:backgroundTint="#5F39D3" />
+        </LinearLayout>
+
+
+
     </LinearLayout>
 </androidx.cardview.widget.CardView>
 

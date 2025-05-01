@@ -15,6 +15,7 @@ class CategoryAdapter(private val categories: List<Category>, private val userId
     class CategoryViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val categoryNameText: TextView = itemView.findViewById(R.id.categoryNameText)
         val viewDetailsButton: Button = itemView.findViewById(R.id.viewDetailsButton)
+        val setBudgetButton: Button = itemView.findViewById(R.id.setBudgetButton) // New button
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CategoryViewHolder {
@@ -36,9 +37,17 @@ class CategoryAdapter(private val categories: List<Category>, private val userId
             }
             context.startActivity(intent)
         }
+
+        holder.setBudgetButton.setOnClickListener {
+            val context = holder.itemView.context
+            val intent = Intent(context, CategoryBudgetPage::class.java).apply {
+                putExtra("categoryId", category.id)
+                putExtra("categoryName", category.name)
+                putExtra("userId", userId)
+            }
+            context.startActivity(intent)
+        }
     }
 
-    override fun getItemCount(): Int {
-        return categories.size
-    }
+    override fun getItemCount(): Int = categories.size
 }

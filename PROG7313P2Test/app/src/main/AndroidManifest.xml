@@ -30,6 +30,11 @@
         <activity
             android:name=".RegisterPage"
             android:exported="false" />
+
+        <activity
+            android:name=".RewardsPage"
+            android:exported="false" />
+
         <activity
             android:name=".MainActivity"
             android:exported="true">

@@ -12,33 +12,50 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:padding="16dp">
+        android:orientation="horizontal"
+        android:padding="16dp"
+        android:gravity="center_vertical">
 
-        <TextView
-            android:id="@+id/expenseName"
+        <!-- Text container -->
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/expenseName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Expense Name"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:textColor="@android:color/black"/>
+
+            <TextView
+                android:id="@+id/expenseAmount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Amount"
+                android:textColor="@android:color/holo_green_dark"
+                android:textSize="16sp" />
+
+            <TextView
+                android:id="@+id/expenseDate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Date"
+                android:textColor="@android:color/darker_gray"
+                android:textSize="14sp" />
+        </LinearLayout>
+
+        <!-- Delete button -->
+        <Button
+            android:id="@+id/deleteExpenseButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Expense Name"
-            android:textSize="18sp"
-            android:textStyle="bold"
-            android:textColor="@android:color/black"/>
-
-        <TextView
-            android:id="@+id/expenseAmount"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Amount"
-            android:textColor="@android:color/holo_green_dark"
-            android:textSize="16sp" />
-
-        <TextView
-            android:id="@+id/expenseDate"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Date"
-            android:textColor="@android:color/darker_gray"
-            android:textSize="14sp" />
-
+            android:text="Delete"
+            android:textColor="@android:color/white"
+            android:backgroundTint="@android:color/holo_red_dark"/>
     </LinearLayout>
 </androidx.cardview.widget.CardView>

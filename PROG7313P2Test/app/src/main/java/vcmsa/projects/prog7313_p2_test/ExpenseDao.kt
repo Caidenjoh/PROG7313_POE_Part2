@@ -1,6 +1,7 @@
 package vcmsa.projects.prog7313_p2_test.data
 
 import androidx.room.Dao
+import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.Query
 
@@ -14,5 +15,9 @@ interface ExpenseDao {
 
     @Query("SELECT * FROM Expense WHERE categoryId = :categoryId AND userId = :userId")
     suspend fun getExpensesForCategory(userId: Int, categoryId: Int): List<Expense>
+
+    @Delete
+    suspend fun deleteExpense(expense: Expense)
+
 
 }

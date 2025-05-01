@@ -17,6 +17,8 @@ import vcmsa.projects.prog7313_p2_test.data.AppDatabase
 import vcmsa.projects.prog7313_p2_test.data.Expense
 import java.text.SimpleDateFormat
 import java.util.*
+import androidx.appcompat.app.AlertDialog
+
 
 class CategoryDetailPage : AppCompatActivity() {
 
@@ -150,8 +152,26 @@ class CategoryDetailPage : AppCompatActivity() {
             cardView.findViewById<TextView>(R.id.expenseName).text = expense.name
             cardView.findViewById<TextView>(R.id.expenseAmount).text = "R${expense.amount}"
             cardView.findViewById<TextView>(R.id.expenseDate).text = expense.date
-            expenseList.addView(cardView)
 
+            // Set delete button functionality
+            val deleteButton = cardView.findViewById<Button>(R.id.deleteExpenseButton)
+            deleteButton.setOnClickListener {
+                AlertDialog.Builder(this@CategoryDetailPage)
+                    .setTitle("Confirm Deletion")
+                    .setMessage("Are you sure you want to delete this expense?")
+                    .setPositiveButton("Yes") { _, _ ->
+                        lifecycleScope.launch {
+                            withContext(Dispatchers.IO) {
+                                db.expenseDao().deleteExpense(expense)
+                            }
+                            loadExpenses()
+                        }
+                    }
+                    .setNegativeButton("No", null)
+                    .show()
+            }
+
+            expenseList.addView(cardView)
             // Add the amount of the current expense to the totalAmount
             totalAmount += expense.amount
         }

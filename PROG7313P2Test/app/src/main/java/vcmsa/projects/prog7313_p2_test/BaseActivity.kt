@@ -33,15 +33,28 @@ open class BaseActivity : AppCompatActivity() {
         toggle.syncState()
 
         navView.setNavigationItemSelectedListener { menuItem ->
-            when (menuItem.itemId) {
-                R.id.nav_home -> startActivity(Intent(this, HomePage::class.java))
-                R.id.nav_categories -> startActivity(Intent(this, CategoriesPage::class.java))
-                R.id.nav_expenses -> startActivity(Intent(this, ExpenseEntryPage::class.java))
-                R.id.nav_rewards -> startActivity(Intent(this, RewardsPage::class.java))
-                R.id.nav_courses -> startActivity(Intent(this, FreeCourseGuidesPage::class.java))
+            val userId = intent.getIntExtra("userId", -1) // Get the userId from the BaseActivity intent
+
+            val intent = when (menuItem.itemId) {
+                R.id.nav_home -> Intent(this, HomePage::class.java)
+                R.id.nav_categories -> Intent(this, CategoriesPage::class.java)
+                R.id.nav_expenses -> Intent(this, ExpenseEntryPage::class.java)
+                R.id.nav_rewards -> Intent(this, RewardsPage::class.java)
+                R.id.nav_courses -> Intent(this, FreeCourseGuidesPage::class.java)
+                else -> null
             }
+
+            // Add userId to the intent for navigation
+            intent?.putExtra("userId", userId)
+
+            intent?.let {
+                startActivity(it)
+            }
+
             drawerLayout.closeDrawers()
             true
         }
     }
 }
+
+

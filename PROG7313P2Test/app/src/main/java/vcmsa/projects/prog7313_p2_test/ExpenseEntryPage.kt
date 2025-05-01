@@ -124,6 +124,9 @@ class ExpenseEntryPage : BaseActivity() {
                 }
             }
         }
+        findViewById<Button>(R.id.returnToPreviousPageButton).setOnClickListener {
+            finish() // Or navigate to home screen if needed
+        }
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {

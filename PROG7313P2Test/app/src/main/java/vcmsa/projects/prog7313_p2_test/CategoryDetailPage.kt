@@ -102,11 +102,16 @@ class CategoryDetailPage : AppCompatActivity() {
             }
         }
 
+
         val addExpenseButton = findViewById<Button>(R.id.addExpenseButton)
         addExpenseButton.setOnClickListener {
             val intent = Intent(this, ExpenseEntryPage::class.java)
             intent.putExtra("userId", userId)
             startActivity(intent)
+        }
+
+        findViewById<Button>(R.id.returnButton).setOnClickListener {
+            finish() // Or navigate to home screen if needed
         }
     }
 
@@ -138,13 +143,22 @@ class CategoryDetailPage : AppCompatActivity() {
         expenseList.removeAllViews()
         val inflater = layoutInflater
 
+        var totalAmount = 0.0 // Variable to store the total amount spent
+
         for (expense in expenses) {
             val cardView = inflater.inflate(R.layout.expense_item, expenseList, false)
             cardView.findViewById<TextView>(R.id.expenseName).text = expense.name
             cardView.findViewById<TextView>(R.id.expenseAmount).text = "R${expense.amount}"
             cardView.findViewById<TextView>(R.id.expenseDate).text = expense.date
             expenseList.addView(cardView)
+
+            // Add the amount of the current expense to the totalAmount
+            totalAmount += expense.amount
         }
+
+        // Update the TextView for the total amount spent
+        val totalAmountTextView = findViewById<TextView>(R.id.totalAmountSpentText)
+        totalAmountTextView.text = "Total Spent: R${"%.2f".format(totalAmount)}"  // Format to 2 decimal places
 
         if (expenses.isEmpty()) {
             val emptyText = TextView(this).apply {
@@ -156,6 +170,7 @@ class CategoryDetailPage : AppCompatActivity() {
             expenseList.addView(emptyText)
         }
     }
+
 
 
 

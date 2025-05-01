@@ -55,5 +55,8 @@ class AddCategoryPage : AppCompatActivity() {
                 Toast.makeText(this, "Please enter a valid category name", Toast.LENGTH_SHORT).show()
             }
         }
+        findViewById<Button>(R.id.returnButton).setOnClickListener {
+            finish() // Or navigate to home screen if needed
+        }
     }
 }

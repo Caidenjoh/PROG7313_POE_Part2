@@ -94,10 +94,46 @@ class CategoryBudgetPage : AppCompatActivity() {
 
             val totalSpending = currentMonthExpenses.sumOf { it.amount }
 
+            // Fetch budget info to compare against spending
+            val budget = withContext(Dispatchers.IO) {
+                db.categoryBudgetDao().getBudgetByCategoryId(categoryId)
+            }
+
             withContext(Dispatchers.Main) {
                 spendingSummaryText.text = "Total spent this month: R%.2f".format(totalSpending)
+
+                // Determine status based on budget limits
+                if (budget != null) {
+                    val status = when {
+                        totalSpending > budget.maxGoal -> {
+                            // Exceeded maximum budget, change color to red
+                            findViewById<TextView>(R.id.spendingStatusText).setTextColor(
+                                resources.getColor(android.R.color.holo_red_light, null) // Predefined red color
+                            )
+                            "Exceeded Maximum Budget"
+                        }
+                        totalSpending < budget.minGoal -> {
+                            // Below minimum budget, no color change here unless you want to highlight it
+                            findViewById<TextView>(R.id.spendingStatusText).setTextColor(
+                                resources.getColor(android.R.color.holo_green_dark, null) // Set to default color
+                            )
+                            "Below Minimum Budget"
+                        }
+                        else -> {
+                            // Within budget, reset color to default
+                            findViewById<TextView>(R.id.spendingStatusText).setTextColor(
+                                resources.getColor(android.R.color.holo_green_dark, null) // Default color
+                            )
+                            "Within Budget"
+                        }
+                    }
+                    findViewById<TextView>(R.id.spendingStatusText).text = "Status: $status"
+                } else {
+                    findViewById<TextView>(R.id.spendingStatusText).text = "Status: No Budget Set"
+                }
             }
         }
+
 
         // Save budget button logic
         saveButton.setOnClickListener {
@@ -134,5 +170,12 @@ class CategoryBudgetPage : AppCompatActivity() {
                 }
             }
         }
+
+        val returnToCategoryButton = findViewById<Button>(R.id.returnToCategoryPageButton)
+        returnToCategoryButton.setOnClickListener {
+            // Navigate back to Category Page (finish the current activity or use an Intent)
+            finish() // This will take the user back to the previous screen, assuming CategoryPage was the previous one.
+        }
+
     }
 }

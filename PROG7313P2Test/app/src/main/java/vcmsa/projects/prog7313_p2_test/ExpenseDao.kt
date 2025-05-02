@@ -19,5 +19,8 @@ interface ExpenseDao {
     @Delete
     suspend fun deleteExpense(expense: Expense)
 
+    @Query("SELECT * FROM Expense WHERE userId = :userId")
+    suspend fun getAllExpensesForUser(userId: Int): List<Expense>
+
 
 }

@@ -16,5 +16,9 @@ interface CategoryBudgetDao {
 
     @Update
     suspend fun updateBudget(budget: CategoryBudget)
+
+    @Query("SELECT * FROM category_budgets")
+    suspend fun getAllBudgets(): List<CategoryBudget>
+
 }
 

@@ -154,14 +154,22 @@ class CategoryBudgetPage : AppCompatActivity() {
             }
 
             lifecycleScope.launch {
-                val budget = CategoryBudget(
-                    categoryId = categoryId,
-                    minGoal = minGoal,
-                    maxGoal = maxGoal
-                )
+                val existingBudget = withContext(Dispatchers.IO) {
+                    db.categoryBudgetDao().getBudgetByCategoryId(categoryId)
+                }
 
-                withContext(Dispatchers.IO) {
-                    db.categoryBudgetDao().insertBudget(budget)
+                if (existingBudget != null) {
+                    // Update existing
+                    val updatedBudget = existingBudget.copy(minGoal = minGoal, maxGoal = maxGoal)
+                    withContext(Dispatchers.IO) {
+                        db.categoryBudgetDao().updateBudget(updatedBudget)
+                    }
+                } else {
+                    // Insert new
+                    val newBudget = CategoryBudget(categoryId = categoryId, minGoal = minGoal, maxGoal = maxGoal)
+                    withContext(Dispatchers.IO) {
+                        db.categoryBudgetDao().insertBudget(newBudget)
+                    }
                 }
 
                 withContext(Dispatchers.Main) {
@@ -170,6 +178,7 @@ class CategoryBudgetPage : AppCompatActivity() {
                 }
             }
         }
+
 
         val returnToCategoryButton = findViewById<Button>(R.id.returnToCategoryPageButton)
         returnToCategoryButton.setOnClickListener {

@@ -48,7 +48,7 @@ class CategoryDetailPage : AppCompatActivity() {
         val categoryName = intent.getStringExtra("categoryName") ?: "Unknown"
         userId = intent.getIntExtra("userId", -1)
 
-        findViewById<TextView>(R.id.categoryDetailText).text = "  Expenses for: \"$categoryName\""
+        findViewById<TextView>(R.id.categoryDetailText).text = "  Expenses for: $categoryName"
         expenseList = findViewById(R.id.expenseListContainer)
         startDateField = findViewById(R.id.startDateField)
         endDateField = findViewById(R.id.endDateField)
@@ -153,7 +153,7 @@ class CategoryDetailPage : AppCompatActivity() {
             cardView.findViewById<TextView>(R.id.expenseAmount).text = "R${expense.amount}"
             cardView.findViewById<TextView>(R.id.expenseDate).text = expense.date
 
-            // Set delete button functionality
+            // Delete button logic
             val deleteButton = cardView.findViewById<Button>(R.id.deleteExpenseButton)
             deleteButton.setOnClickListener {
                 AlertDialog.Builder(this@CategoryDetailPage)
@@ -171,14 +171,36 @@ class CategoryDetailPage : AppCompatActivity() {
                     .show()
             }
 
+            // View Image button logic
+            val viewImageButton = cardView.findViewById<Button>(R.id.viewImageButton)
+            viewImageButton.setOnClickListener {
+                if (expense.receiptImage != null) {
+                    val bitmap = android.graphics.BitmapFactory.decodeByteArray(
+                        expense.receiptImage, 0, expense.receiptImage.size
+                    )
+                    val imageView = ImageView(this@CategoryDetailPage).apply {
+                        setImageBitmap(bitmap)
+                        adjustViewBounds = true
+                        maxHeight = 800
+                        maxWidth = 800
+                    }
+
+                    AlertDialog.Builder(this@CategoryDetailPage)
+                        .setView(imageView)
+                        .setPositiveButton("Close", null)
+                        .show()
+                } else {
+                    Toast.makeText(this@CategoryDetailPage, "No image attached to this expense.", Toast.LENGTH_SHORT).show()
+                }
+            }
+
             expenseList.addView(cardView)
-            // Add the amount of the current expense to the totalAmount
             totalAmount += expense.amount
         }
 
-        // Update the TextView for the total amount spent
+        // Total spent
         val totalAmountTextView = findViewById<TextView>(R.id.totalAmountSpentText)
-        totalAmountTextView.text = "Total Spent: R${"%.2f".format(totalAmount)}"  // Format to 2 decimal places
+        totalAmountTextView.text = "Total Spent: R${"%.2f".format(totalAmount)}"
 
         if (expenses.isEmpty()) {
             val emptyText = TextView(this).apply {
@@ -190,6 +212,7 @@ class CategoryDetailPage : AppCompatActivity() {
             expenseList.addView(emptyText)
         }
     }
+
 
 
 

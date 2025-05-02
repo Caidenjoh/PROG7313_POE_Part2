@@ -49,6 +49,17 @@
                 android:textSize="14sp" />
         </LinearLayout>
 
+        <!-- View Image button -->
+        <Button
+            android:id="@+id/viewImageButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="View Image"
+            android:layout_marginStart="8dp"
+            android:textColor="@android:color/white"
+            android:backgroundTint="@android:color/black"/>
+
+
         <!-- Delete button -->
         <Button
             android:id="@+id/deleteExpenseButton"
@@ -57,5 +68,6 @@
             android:text="Delete"
             android:textColor="@android:color/white"
             android:backgroundTint="@android:color/holo_red_dark"/>
+
     </LinearLayout>
 </androidx.cardview.widget.CardView>

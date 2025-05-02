@@ -3,6 +3,7 @@ package vcmsa.projects.prog7313_p2_test
 import android.content.Intent
 import android.os.Bundle
 import android.widget.FrameLayout
+import android.widget.ImageView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.core.view.GravityCompat
@@ -49,5 +50,36 @@ open class BaseActivity : AppCompatActivity() {
             drawerLayout.closeDrawers()
             true
         }
+
+        val iconImage = fullLayout.findViewById<ImageView>(R.id.iconImage2)
+        iconImage.setOnClickListener {
+            val popup = android.widget.PopupMenu(this, iconImage)
+            popup.menuInflater.inflate(R.menu.logout_menu, popup.menu)
+            popup.setOnMenuItemClickListener { item ->
+                if (item.itemId == R.id.menu_logout) {
+                    showLogoutDialog()
+                    true
+                } else {
+                    false
+                }
+            }
+            popup.show()
+        }
+
+
+    }
+
+    private fun showLogoutDialog() {
+        val builder = androidx.appcompat.app.AlertDialog.Builder(this)
+        builder.setTitle("Confirm Logout")
+        builder.setMessage("Are you sure you want to logout?")
+        builder.setPositiveButton("Yes") { dialog, _ ->
+            val intent = Intent(this, MainActivity::class.java)
+            intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+            startActivity(intent)
+            finish()
+        }
+        builder.setNegativeButton("No") { dialog, _ -> dialog.dismiss() }
+        builder.create().show()
     }
 }

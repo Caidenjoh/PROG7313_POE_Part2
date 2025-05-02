@@ -38,12 +38,14 @@
 
         <ImageView
             android:id="@+id/iconImage2"
-            android:layout_width="45dp"
-            android:layout_height="45dp"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
             android:layout_marginTop="10dp"
             android:layout_marginLeft="350dp"
             android:contentDescription="Icon Image"
             android:src="@drawable/profile_icon"
+            android:clickable="true"
+            android:focusable="true"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.98"
             app:layout_constraintStart_toStartOf="parent"

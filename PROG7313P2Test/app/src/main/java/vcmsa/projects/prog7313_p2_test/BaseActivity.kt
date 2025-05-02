@@ -3,9 +3,9 @@ package vcmsa.projects.prog7313_p2_test
 import android.content.Intent
 import android.os.Bundle
 import android.widget.FrameLayout
-import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
+import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import com.google.android.material.navigation.NavigationView
 
@@ -25,15 +25,14 @@ open class BaseActivity : AppCompatActivity() {
         val toolbar: Toolbar = fullLayout.findViewById(R.id.toolbar)
 
         setSupportActionBar(toolbar)
-        val toggle = ActionBarDrawerToggle(
-            this, drawerLayout, toolbar,
-            R.string.navigation_drawer_open, R.string.navigation_drawer_close
-        )
-        drawerLayout.addDrawerListener(toggle)
-        toggle.syncState()
+
+
+        toolbar.setNavigationOnClickListener {
+            drawerLayout.openDrawer(GravityCompat.START)
+        }
 
         navView.setNavigationItemSelectedListener { menuItem ->
-            val userId = intent.getIntExtra("userId", -1) // Get the userId from the BaseActivity intent
+            val userId = intent.getIntExtra("userId", -1)
 
             val intent = when (menuItem.itemId) {
                 R.id.nav_home -> Intent(this, HomePage::class.java)
@@ -44,17 +43,11 @@ open class BaseActivity : AppCompatActivity() {
                 else -> null
             }
 
-            // Add userId to the intent for navigation
             intent?.putExtra("userId", userId)
-
-            intent?.let {
-                startActivity(it)
-            }
+            intent?.let { startActivity(it) }
 
             drawerLayout.closeDrawers()
             true
         }
     }
 }
-
-

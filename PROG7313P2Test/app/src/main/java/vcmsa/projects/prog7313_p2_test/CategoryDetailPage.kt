@@ -149,8 +149,10 @@ class CategoryDetailPage : AppCompatActivity() {
 
         for (expense in expenses) {
             val cardView = inflater.inflate(R.layout.expense_item, expenseList, false)
+            // Format the expense amount to 2 decimal places
+            val formattedAmount = String.format("%.2f", expense.amount)
             cardView.findViewById<TextView>(R.id.expenseName).text = expense.name
-            cardView.findViewById<TextView>(R.id.expenseAmount).text = "R${expense.amount}"
+            cardView.findViewById<TextView>(R.id.expenseAmount).text = "R $formattedAmount" // Use formatted amount
             cardView.findViewById<TextView>(R.id.expenseDate).text = expense.date
 
             // Delete button logic

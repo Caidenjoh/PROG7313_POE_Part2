@@ -13,22 +13,34 @@ This Android application allows users to track their spending, earn points, and 
   - Secure account creation
   - Personalized experience based on saved data
 
+- **Categories**
+  - Users can create categories of their choice.
+  - View details for each category (showing the expenses) and set budgets for each category.
+
 - **Expense Tracking**
-  - Add and categorize expenses
-  - View and manage categorized data
+  - Add and categorize expenses.
+  - View and manage the expense data.
+  - The expenses can be filters with the user selectable date filter.
 
 - **Reward System**
-  - Points accumulate based on user activity
-  - Points redeemable for discounts from various brands
-  - Visually engaging rewards page with a custom background
+  - Points accumulate based on user activity.
+  - Points redeemable for discounts from various brands.
+  - Visually engaging rewards page with a custom background.
 
 - **Course Guides**
+  - Provides resources (links) for users to go read.
+  - Educates them on the best ways to budget.
 
 - **Budget Setting**
+  - Users can set their min and max monthly spending limit goals for each category.
+  - Minimum goal is how much the user would ideally stay under.
+  - Maximum goal is the max they would not want to exceed.
+  - A comment is provided to users that informs them if they are withing the min and max goals for the month.
 
 - **Navigation**
-  - Intuitive transitions between pages (e.g., Home ↔ Rewards)
-  - Button-based interaction and clear layout
+  - Intuitive transitions between pages (e.g., Home or Rewards).
+  - Button-based interaction and clear layout.
+  - Users can also navigate the app using the navigation bar.
 
 ---
 
@@ -97,7 +109,7 @@ This Android application allows users to track their spending, earn points, and 
 
 ## 📌 Notes
 
-- Points are currently static but can be made dynamic by passing data via `Intent`
+- Points are currently static but can be made dynamic in the future by passing data via `Intent`
 
 ---
 
@@ -107,10 +119,11 @@ This Android application allows users to track their spending, earn points, and 
 - API integration for real-time reward updates
 - Dark mode and accessibility enhancements
 
-Reece Corbett - ST10279058
+Cade Gamble - ST10262290
 Caiden Johanson - ST10377348
 Kuhle Langa - ST10372352
-Connor Grobler - ST
-Cade Gamble - ST10262290
+Reece Corbett - ST10279058
+Connor Grobler - ST10323212
+
 
 

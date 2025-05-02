@@ -6,6 +6,9 @@ PROG7313 Group Assignment Part 2
 This Android application allows users to track their spending and enables them to create categories, add expenses to categories, set budgets for each category, earn points, and redeem those points for real-world rewards (e.g., discounts). Built using **Kotlin** and **XML** in **Android Studio**.
 
 ---
+## Video of App on YouTube
+https://youtu.be/CC4oi0tNE_U
+---
 
 ## Key Features
 
@@ -78,11 +81,11 @@ This Android application allows users to track their spending and enables them t
 
 ## Installation Instructions
 
-## Prerequisites:
+### Prerequisites:
 - Android Studio (latest stable version recommended)
 - Android SDK 26 or higher
 
-## Steps:
+### Steps:
 1. Clone the repository or copy project files into Android Studio:
 2. Open the project in Android Studio.
 3. Let Gradle sync complete.
@@ -113,6 +116,7 @@ This Android application allows users to track their spending and enables them t
 - Sometimes the first run on a new device takes longer than 5 minutes so it might timeout the app when starting up, but if you run it again after that it should run the app perfectly fine.
 - Points are currently static but can be made dynamic in the future by passing data via `Intent`
 - The view graph page currently is not implemented because the POE only says it needs it for Part 3. The other graph on the home screen however is functional.
+- We used Pixel 8a API 28 for our emulator phone
 
 ---
 
@@ -128,11 +132,7 @@ This Android application allows users to track their spending and enables them t
 - PhilJay. (2020). MPAndroidChart – A powerful chart library for Android. [online] GitHub. Available at: https://github.com/PhilJay/MPAndroidChart [Accessed 30 April 2025].
 
 Caiden Johanson - ST10377348
-Cade Gamble - ST10262290
+Cade Gamble - ST10262209
 Connor Grobler - ST10323212
 Kuhle Langa - ST10372352
 Reece Corbett - ST10279058
-Connor Grobler - ST10323212
-
-
-
